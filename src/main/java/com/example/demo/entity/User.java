@@ -1,5 +1,7 @@
 package com.example.demo.entity;
 
+import java.util.Iterator;
+
 import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -12,7 +14,7 @@ public class User {
 	@Id
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
-    private String id;
+    public String id;
 
     @Column(name = "first_name")
     private String firstName;
@@ -26,5 +28,48 @@ public class User {
     @Column(name = "password")
     @NotNull
     private String password;
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @java.lang.Override
+    public java.lang.String toString() {
+        return "User{" +
+                "id='" + id + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 
 }
