@@ -76,6 +76,14 @@ public class TaskService {
 			task.setComplete(true);
 			return "task completed";
 		}
+		
+
+		public String updateDelete(String id) {
+			Task task = repository.getById(id);
+			task.setFlag(true);
+			return "";
+		}
+
 	    
 	    public String deleteTask(String id) {
 	   	    Task task = repository.getById(id);

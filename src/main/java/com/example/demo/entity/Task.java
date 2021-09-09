@@ -42,9 +42,6 @@ public class Task {
 
 			public Task() {
 			}
-		    
-		    
-	
 
 			public Task(String id, String title, String desc, User user, List<Tag> tagList) {
 				super();
@@ -54,9 +51,6 @@ public class Task {
 				this.user = user;
 				this.tagList = tagList;
 			}
-
-
-
 
 			public boolean isFlag() {
 				return flag;

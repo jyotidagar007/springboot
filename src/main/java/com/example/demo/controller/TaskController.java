@@ -42,6 +42,11 @@ public class TaskController {
 	        return ResponseEntity.ok(taskService.updateComplete(id));
 	    }
 		
+		@PutMapping(value = "/update/delete")
+	    public ResponseEntity updateDelete(String id) {
+	        return ResponseEntity.ok(taskService.updateDelete(id));
+	    }
+		
 		@DeleteMapping(value = "/delete")
 		public ResponseEntity deleteTask(String id)
 		{
