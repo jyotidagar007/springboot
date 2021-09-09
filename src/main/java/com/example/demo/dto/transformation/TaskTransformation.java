@@ -9,7 +9,7 @@ public class TaskTransformation {
 	    	TaskDTO taskDTO = new TaskDTO();
 	    	taskDTO.setTitle(task.getTitle());
 	    	taskDTO.setDesc(task.getDesc());
-	    	taskDTO.setTag(task.getTag());
+	 //   	taskDTO.setTag(task.getTag());
 	    	
 	    	return taskDTO;
 	    }
