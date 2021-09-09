@@ -28,20 +28,18 @@ public class UserController {
 	
 	@PostMapping(value = "/create")
     public ResponseEntity createUser(@RequestBody UserDTO userDTO) {
-        User user = userService.createUser(userDTO);
-        return ResponseEntity.ok(user);
+                return ResponseEntity.ok(userService.createUser(userDTO));
     }
 	
 	@PutMapping(value = "/update")
 	public ResponseEntity updateUser(@RequestBody UserDTO userDTO)
 	{
-		  User user = userService.updateUser(userDTO);
-	        return ResponseEntity.ok(user);
+	        return ResponseEntity.ok(userService.updateUser(userDTO));
 	}
 	
 	@DeleteMapping(value = "/delete")
-	public ResponseEntity deleteUser(String username)
+	public ResponseEntity deleteUser(String id)
 	{
-		return ResponseEntity.ok(userService.deleteUser(username));
+		return ResponseEntity.ok(userService.deleteUser(id));
 	}
 }

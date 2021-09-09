@@ -34,7 +34,7 @@ public class UserService {
 	        return UserTransformation.fromEntity(user);
 	}
 
-    public User createUser(UserDTO userDTO) {
+    public UserDTO createUser(UserDTO userDTO) {
 
         User user = new User();
         user.setFirstName(userDTO.getFirstName());
@@ -43,25 +43,25 @@ public class UserService {
         user.setPassword(userDTO.getPassword());
         repository.save(user);
 
-        return user;
+        return userDTO;
     }
     
-    public User updateUser(UserDTO userDTO) {
+    public UserDTO updateUser(UserDTO userDTO) {
     	String username = userDTO.getUsername();
     	User user = repository.findByUsername(username);
         
     	 user.setFirstName(userDTO.getFirstName());
          user.setLastName(userDTO.getLastName());
          user.setPassword(userDTO.getPassword());
+         
              repository.save(user);
        
-          return user;
-         
+          return userDTO;
     }
     
-    public String deleteUser(String username) {
-   	 User user = repository.findByUsername(username);
-           repository.deleteById(user.id);
+    public String deleteUser(String id) {
+   	 User user = repository.getById(id);
+           repository.delete(user);
            return "deleted";
    }
 

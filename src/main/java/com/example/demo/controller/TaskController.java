@@ -17,8 +17,8 @@ public class TaskController {
 	    TaskService taskService;
 	    
 		@GetMapping(value = "/get")
-	    public ResponseEntity getByTitle(String title) {
-	        return ResponseEntity.ok(taskService.getByTitle(title));
+	    public ResponseEntity getById(String id) {
+	        return ResponseEntity.ok(taskService.getById(id));
 	    }
 		
 		@GetMapping(value = "/get/tasks")
@@ -28,8 +28,7 @@ public class TaskController {
 		
 		@PostMapping(value = "/create")
 	    public ResponseEntity createTask(@RequestBody TaskDTO taskDTO) {
-	       Task task = taskService.createTask(taskDTO);
-	        return ResponseEntity.ok(task);
+	        return ResponseEntity.ok(taskService.createTask(taskDTO));
 	    }
 		
 		@PutMapping(value = "/update")

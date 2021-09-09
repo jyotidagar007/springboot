@@ -27,8 +27,8 @@ public class TaskService {
 	     TagRepository tagRepo;
 	 
 
-	    public TaskDTO getByTitle(String title) {
-	        Task task = repository.findByTitle(title);
+	    public TaskDTO getById(String id) {
+	        Task task = repository.getById(id);
 	        return TaskTransformation.fromEntity(task);
 	    }
 	    
@@ -40,7 +40,7 @@ public class TaskService {
 	    	  
 	    }
 
-	    public Task createTask(TaskDTO taskDTO) {
+	    public TaskDTO createTask(TaskDTO taskDTO) {
 
 	        Task task = new Task();
 	        User user = userRepo.getById(taskDTO.getUserId());
@@ -53,10 +53,10 @@ public class TaskService {
 	        
 	        repository.save(task);
 
-	        return task;
+	        return taskDTO;
 	    }
 	    
-	    public String updateTask(TaskDTO taskDTO) {
+	    public TaskDTO updateTask(TaskDTO taskDTO) {
 	    	
 	    	 Task task = repository.findByTitle(taskDTO.getTitle());
 	    	 
@@ -67,7 +67,7 @@ public class TaskService {
 	             task.setDesc(taskDTO.getDesc());
 	          
 	             repository.save(task);
-	             return "Data updated";
+	             return taskDTO;
 	        
 	    }
 	    
@@ -77,9 +77,9 @@ public class TaskService {
 			return "task completed";
 		}
 	    
-	    public String deleteTask(String title) {
-	   	    Task task = repository.findByTitle(title);
-	           repository.deleteById(task.id);
+	    public String deleteTask(String id) {
+	   	    Task task = repository.getById(id);
+	           repository.delete(task);
 	           return "deleted";
 	   }
 
