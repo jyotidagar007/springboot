@@ -21,10 +21,10 @@ public class TaskController {
 	        return ResponseEntity.ok(taskService.getById(id));
 	    }
 		
-		@GetMapping(value = "/get/tasks")
-	    public ResponseEntity getTasksByUserId(String userId) {
-	        return ResponseEntity.ok(taskService.getTasksByUserId(userId));
-		}		
+//		@GetMapping(value = "/get/tasks")
+//	    public ResponseEntity getTasksByUserId(String userId) {
+//	        return ResponseEntity.ok(taskService.getTasksByUserId(userId));
+//		}		
 		
 		@PostMapping(value = "/create")
 	    public ResponseEntity createTask(@RequestBody TaskDTO taskDTO) {

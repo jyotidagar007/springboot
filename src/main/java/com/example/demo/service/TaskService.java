@@ -22,9 +22,9 @@ public class TaskService {
 	 private @Autowired
 	    TaskRepository repository;
 	 private @Autowired
-	    UserRepository userRepo;
-	 private @Autowired
-	     TagRepository tagRepo;
+	    UserRepository userRepository;
+	// private @Autowired
+	  //   TagRepository tagRepository;
 	 
 
 	    public TaskDTO getById(String id) {
@@ -33,17 +33,19 @@ public class TaskService {
 	    }
 	    
 
-	    public TaskDTO getTasksByUserId(String userId) {
-	    	
-	    	 Task task = repository.findAllByUserId(userId);
-	    	 return TaskTransformation.fromEntity(task);
-	    	  
-	    }
+//	    public String getTasksByUserId(String userId) {
+//	    	
+//	    	 List<Task> task= repository.getByUserId();
+//	        
+//	    	 task.forEach(System.out::println);
+//	    	 
+//	    	 return "";
+//	    }
 
 	    public TaskDTO createTask(TaskDTO taskDTO) {
 
 	        Task task = new Task();
-	        User user = userRepo.getById(taskDTO.getUserId());
+	        User user = userRepository.getById(taskDTO.getUserId());
 	       
 	        Date date = new Date();
             task.setDateCreated(date);
@@ -81,14 +83,14 @@ public class TaskService {
 		public String updateDelete(String id) {
 			Task task = repository.getById(id);
 			task.setFlag(true);
-			return "";
+			return "soft deleted";
 		}
 
 	    
 	    public String deleteTask(String id) {
 	   	    Task task = repository.getById(id);
 	           repository.delete(task);
-	           return "deleted";
+	           return "hard deleted";
 	   }
 
 	

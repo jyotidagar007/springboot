@@ -56,21 +56,17 @@ public class Task {
 				return flag;
 			}
 
-
 			public void setFlag(boolean flag) {
 				this.flag = flag;
 			}
-
 
 			public boolean isComplete() {
 				return isComplete;
 			}
 
-
 			public void setComplete(boolean isComplete) {
 				this.isComplete = isComplete;
 			}
-
 
 			public User getUser() {
 				return user;
@@ -123,7 +119,6 @@ public class Task {
 		                ", date='" + dateCreated + '\'' +
 		                '}';
 		    }
-
 
 			public List<Tag> getTagList() {
 				return tagList;
