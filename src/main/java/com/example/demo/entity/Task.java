@@ -24,7 +24,7 @@ public class Task {
 		    
 		    private boolean isComplete = false;
 		    
-		    private boolean flag;
+		    private boolean flag = false;
 		    
 		    @Column(name="Date_Created")
 		    private Date dateCreated;

@@ -43,9 +43,9 @@ public class TaskController {
 	    }
 		
 		@DeleteMapping(value = "/delete")
-		public ResponseEntity deleteTask(String title)
+		public ResponseEntity deleteTask(String id)
 		{
-			return ResponseEntity.ok(taskService.deleteTask(title));
+			return ResponseEntity.ok(taskService.deleteTask(id));
 		}
 
 }
