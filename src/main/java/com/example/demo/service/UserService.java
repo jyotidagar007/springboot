@@ -2,6 +2,9 @@ package com.example.demo.service;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.example.demo.dto.UserDTO;
+import com.example.demo.dto.transformation.UserTransformation;
 import com.example.demo.entity.User;
 import com.example.demo.repository.*;
 import org.springframework.http.ResponseEntity;
@@ -21,54 +24,46 @@ public class UserService {
     private @Autowired
     UserRepository repository;
 
-    public String getByUserName(String username) {
-        Optional<User> entity = repository.findByUsername(username);
-        if(entity.isPresent()){
-            return entity.get().toString();
-        }else{
-            return "Not found";
-        }
+    public UserDTO getByUserName(String username) {
+        User user = repository.findByUsername(username);
+        return UserTransformation.fromEntity(user);
     }
+    
+	public UserDTO getById(String id) {
+		 User user = repository.getById(id);
+	        return UserTransformation.fromEntity(user);
+	}
 
-    public User createUser(String firstName, String lastName, String username, String password) {
+    public User createUser(UserDTO userDTO) {
 
         User user = new User();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setUsername(username);
-        user.setPassword(password);
+        user.setFirstName(userDTO.getFirstName());
+        user.setLastName(userDTO.getLastName());
+        user.setUsername(userDTO.getUsername());
+        user.setPassword(userDTO.getPassword());
         repository.save(user);
 
         return user;
     }
     
-    public String updateUser(String firstName, String lastName, String username, String password) {
-    	 Optional<User> entity = repository.findByUsername(username);
-         if(entity.isPresent())
-         {
-            User user = entity.get();
-             user.setFirstName(firstName);
-             user.setLastName(lastName);
-             user.setUsername(username);
-             user.setPassword(password);
+    public User updateUser(UserDTO userDTO) {
+    	String username = userDTO.getUsername();
+    	User user = repository.findByUsername(username);
+        
+    	 user.setFirstName(userDTO.getFirstName());
+         user.setLastName(userDTO.getLastName());
+         user.setPassword(userDTO.getPassword());
              repository.save(user);
-             return "Data updated";
-         }else{
-             return "Not found";
-         }
+       
+          return user;
+         
     }
     
     public String deleteUser(String username) {
-   	 Optional<User> entity = repository.findByUsername(username);
-        if(entity.isPresent())
-        {
-           User user = entity.get();
+   	 User user = repository.findByUsername(username);
            repository.deleteById(user.id);
            return "deleted";
-       }
-        else{
-            return "Not found";
-        }
    }
+
 }
 

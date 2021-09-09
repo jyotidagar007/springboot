@@ -1,74 +1,87 @@
 package com.example.demo.service;
 
-import java.util.Optional;
+import java.util.*;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.dto.TaskDTO;
+import com.example.demo.dto.transformation.TaskTransformation;
+import com.example.demo.entity.Tag;
 import com.example.demo.entity.Task;
+import com.example.demo.entity.User;
+import com.example.demo.repository.TagRepository;
 import com.example.demo.repository.TaskRepository;
+import com.example.demo.repository.UserRepository;
 
 @Component
 @Transactional
 public class TaskService {
 	 private @Autowired
 	    TaskRepository repository;
+	 private @Autowired
+	    UserRepository userRepo;
+	 private @Autowired
+	     TagRepository tagRepo;
 	 
-	    public int i = 0;
 
-	    public String getByS_no(int s_no) {
-	        Optional<Task> entity = repository.findByS_No(s_no);
-	        if(entity.isPresent()){
-	            return entity.get().toString();
-	        }else{
-	            return "Not found";
-	        }
+	    public TaskDTO getByTitle(String title) {
+	        Task task = repository.findByTitle(title);
+	        return TaskTransformation.fromEntity(task);
+	    }
+	    
+
+	    public TaskDTO getTasksByUserId(String userId) {
+	    	
+	    	 Task task = repository.findAllByUserId(userId);
+	    	 return TaskTransformation.fromEntity(task);
+	    	  
 	    }
 
-	    public Task createTask(String text, String desc, String tag) {
+	    public Task createTask(TaskDTO taskDTO) {
 
 	        Task task = new Task();
-	        
-	        i++;
-	        task.setS_no(i);
-	        task.setTask(text);
-	        task.setDesc(desc);
-	        task.setTag(tag);
+	        User user = userRepo.getById(taskDTO.getUserId());
+	       
+	        Date date = new Date();
+            task.setDateCreated(date);
+	        task.setTitle(taskDTO.getTitle());
+	        task.setDesc(taskDTO.getDesc());
+	        task.setUser(user);
 	        
 	        repository.save(task);
 
 	        return task;
 	    }
 	    
-	    public String updateTask(int s_no, String text, String desc, String tag) {
-	    	 Optional<Task> entity = repository.findByS_No(s_no);
-	         if(entity.isPresent())
-	         {
-	            Task task = entity.get();
-	             task.setTask(text);
-	             task.setDesc(desc);
-	             task.setTag(tag);
-	            
+	    public String updateTask(TaskDTO taskDTO) {
+	    	
+	    	 Task task = repository.findByTitle(taskDTO.getTitle());
+	    	 
+	             
+	             Date date = new Date();
+	             task.setLastUpdated(date);
+	             task.setTitle(taskDTO.getTitle());
+	             task.setDesc(taskDTO.getDesc());
+	          
 	             repository.save(task);
 	             return "Data updated";
-	         }else{
-	             return "Not found";
-	         }
+	        
 	    }
 	    
-	    public String deleteTask(int s_no) {
-	   	 Optional<Task> entity = repository.findByS_No(s_no);
-	        if(entity.isPresent())
-	        {
-	           Task task = entity.get();
+		public String updateComplete(String id) {
+			Task task = repository.getById(id);
+			task.setComplete(true);
+			return "task completed";
+		}
+	    
+	    public String deleteTask(String title) {
+	   	    Task task = repository.findByTitle(title);
 	           repository.deleteById(task.id);
 	           return "deleted";
-	       }
-	        else{
-	            return "Not found";
-	        }
 	   }
+
 	
 }

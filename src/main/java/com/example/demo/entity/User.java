@@ -1,6 +1,8 @@
 package com.example.demo.entity;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -19,7 +21,7 @@ public class User {
     @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name")
+	@Column(name = "last_name")
     private String lastName;
 
     @Column(name = "user_name", unique = true)
@@ -28,8 +30,24 @@ public class User {
     @Column(name = "password")
     @NotNull
     private String password;
+    
+    
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Task> taskList= new ArrayList();
+    
+    
 
-    public String getFirstName() {
+    public User() {
+	}
+
+	public User(String firstName, String lastName, String username, String password) {
+						this.firstName = firstName;
+						this.lastName = lastName;
+						this.username = username;
+						this.password = password;
+				}
+
+	public String getFirstName() {
         return firstName;
     }
 
@@ -61,7 +79,16 @@ public class User {
         this.password = password;
     }
 
-    @java.lang.Override
+
+    public List<Task> getTaskList() {
+		return taskList;
+	}
+
+	public void setTaskList(List<Task> taskList) {
+		this.taskList = taskList;
+	}
+
+	@java.lang.Override
     public java.lang.String toString() {
         return "User{" +
                 "id='" + id + '\'' +

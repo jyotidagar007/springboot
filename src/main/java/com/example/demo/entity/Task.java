@@ -1,10 +1,12 @@
 package com.example.demo.entity;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
 import javax.persistence.*;
 
 import org.hibernate.annotations.GenericGenerator;
-
-import com.sun.istack.NotNull;
 
 @Entity
 @Table(name = "task")
@@ -14,42 +16,82 @@ public class Task {
 		    @GenericGenerator(name = "system-uuid", strategy = "uuid")
 	    	public String id;
 		    
-		    @Column(name="S.no")
-		    public int s_no;
+		    @Column(name="title")
+		    private String title;
 		    
-//		    @Column(name = "Time")
-//		    private String time;
-		    
-		    @Column(name="Task")
-		    private String text;
-		    
-		    @Column(name="Description")
+		    @Column(name="description")
 		    private String desc;
 		    
-		    @Column(name="Tag")
-		    private String tag;
+		    private boolean isComplete = false;
 		    
-//		    private String prio;
-//		    
-//		    private String complete;
-//		    
-//		    private String col;
+		    private boolean flag;
 		    
-		    public String getTask() {
-		        return text;
+		    @Column(name="Date_Created")
+		    private Date dateCreated;
+            
+		    @Column(name="Date_Updated")
+			private Date lastUpdated;
+		    
+		    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+		    @JoinColumn(nullable = false)
+		    private User user;
+		    
+		    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+		    List<Tag> tagList= new ArrayList<Tag>();
+		    
+
+			public Task() {
+			}
+		    
+		    
+	
+
+			public Task(String id, String title, String desc, User user, List<Tag> tagList) {
+				super();
+				this.id = id;
+				this.title = title;
+				this.desc = desc;
+				this.user = user;
+				this.tagList = tagList;
+			}
+
+
+
+
+			public boolean isFlag() {
+				return flag;
+			}
+
+
+			public void setFlag(boolean flag) {
+				this.flag = flag;
+			}
+
+
+			public boolean isComplete() {
+				return isComplete;
+			}
+
+
+			public void setComplete(boolean isComplete) {
+				this.isComplete = isComplete;
+			}
+
+
+			public User getUser() {
+				return user;
+			}
+
+			public void setUser(User user) {
+				this.user = user;
+			}
+
+			public String getTitle() {
+		        return title;
 		    }
 
-		    public void setTask(String text) {
-		        this.text = text;
-		    }
-		    
-		    
-//		    public int getS_no() {
-//		        return s_no;
-//		    }
-
-		    public void setS_no(int s_no) {
-		        this.s_no = s_no;
+		    public void setTitle(String title) {
+		        this.title = title;
 		    }
 		    
 		    
@@ -61,23 +103,44 @@ public class Task {
 		        this.desc = desc;
 		    }
 		    
-		    public String getTag() {
-		        return tag;
-		    }
+		    
+		    public Date getDateCreated() {
+					return dateCreated;
+				}
 
-		    public void setTag(String tag) {
-		        this.tag = tag;
-		    }
+				public void setDateCreated(Date dateCreated) {
+					this.dateCreated = dateCreated;
+				}
+
+				public Date getLastUpdated() {
+					return lastUpdated;
+				}
+
+				public void setLastUpdated(Date lastUpdated) {
+					this.lastUpdated = lastUpdated;
+				}
 		    
 		    @java.lang.Override
 		    public java.lang.String toString() {
 		        return "Task{" +
 		                "id='" + id + '\'' +
-		                ", S.No='" + s_no + '\'' +
-		                ", task='" + text + '\'' +
+		                ", title='" + title + '\'' +
 		                ", description='" + desc + '\'' +
-		                ", tag='" + tag + '\'' +
+		                ", date='" + dateCreated + '\'' +
 		                '}';
 		    }
+
+
+			public List<Tag> getTagList() {
+				return tagList;
+			}
+
+
+			public void setTagList(List<Tag> tagList) {
+				this.tagList = tagList;
+			}
+
+
+			
 
 }
