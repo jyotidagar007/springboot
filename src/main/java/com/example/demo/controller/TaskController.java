@@ -24,7 +24,17 @@ public class TaskController {
 		@GetMapping(value = "/get/tasks")
 	    public ResponseEntity getTasksByUserId(String userId) {
 	        return ResponseEntity.ok(taskService.getTasksByUserId(userId));
-		}		
+		}	
+		
+		@GetMapping(value = "/get/completed_tasks")
+	    public ResponseEntity getCompletedTasksByUserId(String userId) {
+	        return ResponseEntity.ok(taskService.getCompletedTasksByUserId(userId));
+		}
+		
+		@GetMapping(value = "/get/incompleted_tasks")
+	    public ResponseEntity getIncompletedTasksByUserId(String userId) {
+	        return ResponseEntity.ok(taskService.getIncompletedTasksByUserId(userId));
+		}
 		
 		@PostMapping(value = "/create")
 	    public ResponseEntity createTask(@RequestBody TaskDTO taskDTO) {

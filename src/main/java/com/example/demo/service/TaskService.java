@@ -42,6 +42,46 @@ public class TaskService {
 	       
 	    	 return TaskTransformation.fromEntity(task);
 	    }
+	    
+	    
+	    public List<TaskDTO> getCompletedTasksByUserId(String userId) {
+	    	
+	    	List<Task> list = repository.findAllByUserId(userId);
+	    	List<Task> newList = new ArrayList<Task>();
+	    	
+	    	for(int i=0;i<list.size();i++)
+			{
+			    Task task = list.get(i);
+			    
+			    if(task.isComplete());
+			    {
+			    	newList.add(task);
+			    }
+			    
+			} 
+	    	
+	    	return TaskTransformation.fromEntity(newList);
+		}
+	    
+	    
+	    public List<TaskDTO> getIncompletedTasksByUserId(String userId) {
+	    	
+	    	List<Task> list = repository.findAllByUserId(userId);
+             List<Task> newList = new ArrayList<Task>();
+	    	
+	    	for(int i=0;i<list.size();i++)
+			{
+			    Task task = list.get(i);
+			    
+			    if(!task.isComplete());
+			    {
+			    	newList.add(task);
+			    }
+			    
+			}
+	    	
+	    	return TaskTransformation.fromEntity(newList);
+        }
 
 	    public TaskDTO createTask(TaskDTO taskDTO) {
 
