@@ -3,6 +3,7 @@ package com.example.demo.service;
 import java.util.*;
 
 import javax.transaction.Transactional;
+import java.lang.Iterable;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import com.example.demo.dto.transformation.TaskTransformation;
 import com.example.demo.entity.Tag;
 import com.example.demo.entity.Task;
 import com.example.demo.entity.User;
+
 import com.example.demo.repository.TagRepository;
 import com.example.demo.repository.TaskRepository;
 import com.example.demo.repository.UserRepository;
@@ -19,12 +21,13 @@ import com.example.demo.repository.UserRepository;
 @Component
 @Transactional
 public class TaskService {
-	 private @Autowired
+	 private static final int Iterable = 0;
+	private @Autowired
 	    TaskRepository repository;
 	 private @Autowired
 	    UserRepository userRepository;
-	// private @Autowired
-	  //   TagRepository tagRepository;
+	 private @Autowired
+	     TagRepository tagRepository;
 	 
 
 	    public TaskDTO getById(String id) {
@@ -33,14 +36,12 @@ public class TaskService {
 	    }
 	    
 
-//	    public String getTasksByUserId(String userId) {
-//	    	
-//	    	 List<Task> task= repository.getByUserId();
-//	        
-//	    	 task.forEach(System.out::println);
-//	    	 
-//	    	 return "";
-//	    }
+	    public List<TaskDTO> getTasksByUserId(String userId) {
+	  
+			List<Task> task = repository.findAllByUserId(userId);
+	       
+	    	 return TaskTransformation.fromEntity(task);
+	    }
 
 	    public TaskDTO createTask(TaskDTO taskDTO) {
 
