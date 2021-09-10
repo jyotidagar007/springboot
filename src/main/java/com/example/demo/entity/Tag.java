@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -31,7 +32,8 @@ public class Tag {
 	private String color;
 	
 	@ManyToMany(fetch = FetchType.LAZY)
-	@JoinColumn(nullable = false)
+	@JoinTable(joinColumns = @JoinColumn(name = "tag_id"),
+             inverseJoinColumns = @JoinColumn(name = "task_id"))
 	List<Task> taskList = new ArrayList<Task>();
 	
 	
@@ -73,10 +75,6 @@ public class Tag {
 
 	public void setColor(String color) {
 		this.color = color;
-	}
-	
-
-	
-	
+	}	
 	
 }

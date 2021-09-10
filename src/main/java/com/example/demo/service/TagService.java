@@ -45,7 +45,7 @@ public class TagService {
 	public String deleteTag(String id) {
 		
 		Tag tag = tagRepository.getById(id);
-		tagRepository.delete(tag);
+        tagRepository.delete(tag);
 		
 		return "deleted";
 	}

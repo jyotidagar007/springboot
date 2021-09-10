@@ -127,9 +127,6 @@ public class Task {
 
 			public void setTagList(List<Tag> tagList) {
 				this.tagList = tagList;
-			}
-
-
-			
+			}			
 
 }
