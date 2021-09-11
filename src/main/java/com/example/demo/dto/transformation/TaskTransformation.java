@@ -13,9 +13,7 @@ public class TaskTransformation {
 	    	
 	    	taskDTO.setTitle(task.getTitle());
 	    	taskDTO.setDesc(task.getDesc());
-	    	taskDTO.setDateCreated(task.getDateCreated());
-	    	taskDTO.setLastUpdated(task.getLastUpdated());
-	    	taskDTO.setFlag(task.isFlag());
+	    	taskDTO.setDateCreated(task.getDateCreated());	
 	    	taskDTO.setComplete(task.isComplete());
 	    	
 	    	return taskDTO;
@@ -27,17 +25,9 @@ public class TaskTransformation {
 		
 			for(int i=0;i<list.size();i++)
 			{
-				TaskDTO taskDTO = new TaskDTO();
 				
-			    Task task = list.get(i);
-			    
-			    taskDTO.setTitle(task.getTitle());
-		    	taskDTO.setDesc(task.getDesc());
-		    	taskDTO.setDateCreated(task.getDateCreated());
-		    	taskDTO.setLastUpdated(task.getLastUpdated());
-		    	taskDTO.setFlag(task.isFlag());
-		    	taskDTO.setComplete(task.isComplete());
-			    
+			    Task task = list.get(i);  
+			    TaskDTO taskDTO = fromEntity(task);   
 			    listDTO.add(taskDTO);
 			} 
 		

@@ -24,7 +24,7 @@ public class TaskDTO {
 		    
 		    private String userId;
 		    
-		    List<String> tagList= new ArrayList<String>();
+		    List<String> tagIds= new ArrayList<>();
 		    
 		    
 
@@ -78,12 +78,12 @@ public class TaskDTO {
 		    }
 		    
 
-			public List<String> getTagList() {
-				return tagList;
+			public List<String> getTagIds() {
+				return tagIds;
 			}
 
-			public void setTagList(List<String> tagList) {
-				this.tagList = tagList;
+			public void setTagIds(List<String> tagIds) {
+				this.tagIds = tagIds;
 			}
 
 			public String getUserId() {

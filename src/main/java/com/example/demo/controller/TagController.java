@@ -20,8 +20,8 @@ public class TagController {
 	    }		
 		
 		@PostMapping(value = "/create")
-	    public ResponseEntity createTag(String title, String color) {
-	        return ResponseEntity.ok(tagService.createTag(title, color));
+	    public ResponseEntity createTag(String title, String color, String userId) {
+	        return ResponseEntity.ok(tagService.createTag(title, color, userId));
 	    }
 		
 		@PutMapping(value = "/update")

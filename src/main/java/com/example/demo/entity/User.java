@@ -33,7 +33,10 @@ public class User {
     
     
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    List<Task> taskList= new ArrayList();
+    List<Task> tasks= new ArrayList();
+    
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    List<Tag> tags= new ArrayList();
     
     
 
@@ -80,12 +83,12 @@ public class User {
     }
 
 
-    public List<Task> getTaskList() {
-		return taskList;
+    public List<Task> getTasks() {
+		return tasks;
 	}
 
-	public void setTaskList(List<Task> taskList) {
-		this.taskList = taskList;
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
 	}
 
 	@java.lang.Override

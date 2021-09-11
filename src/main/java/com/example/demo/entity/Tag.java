@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -31,10 +32,14 @@ public class Tag {
 	@Column(name = "color")
 	private String color;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany
 	@JoinTable(joinColumns = @JoinColumn(name = "tag_id"),
              inverseJoinColumns = @JoinColumn(name = "task_id"))
-	List<Task> taskList = new ArrayList<Task>();
+	List<Task> tasks = new ArrayList<Task>();
+	
+	 @ManyToOne(fetch = FetchType.LAZY, optional = false)
+	 @JoinColumn(nullable = false)
+	private User user;
 	
 	
 	public Tag() {
@@ -48,18 +53,28 @@ public class Tag {
 		this.id = id;
 		this.title = title;
 		this.color = color;
-		this.taskList = taskList;
+		this.tasks = taskList;
 	}
 
 
 
-	public List<Task> getTaskList() {
-		return taskList;
+	public List<Task> getTasks() {
+		return tasks;
 	}
 
-	public void setTaskList(List<Task> taskList) {
-		this.taskList = taskList;
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
 	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
 
 	public String getTitle() {
 		return title;

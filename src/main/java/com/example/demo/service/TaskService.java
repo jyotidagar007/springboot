@@ -36,63 +36,50 @@ public class TaskService {
 	    }
 	    
 
-	    public List<TaskDTO> getTasksByUserId(String userId) {
+	    public List<TaskDTO> getTasksByUserId(String userId, Boolean complete) {
 	  
-			List<Task> task = repository.findAllByUserId(userId);
-	       
-	    	 return TaskTransformation.fromEntity(task);
-	    }
-	    
-	    
-	    public List<TaskDTO> getCompletedTasksByUserId(String userId) {
-	    	
-	    	List<Task> list = repository.findAllByUserId(userId);
-	    	List<Task> newList = new ArrayList<Task>();
-	    	
-	    	for(int i=0;i<list.size();i++)
+			List<Task> list = repository.findAllByUserId(userId);
+			List<Task> newList = new ArrayList<Task>();
+			
+			for(int i=0;i<list.size();i++)
 			{
 			    Task task = list.get(i);
 			    
-			    if(task.isComplete());
+			    if(!task.isFlag())
 			    {
-			    	newList.add(task);
-			    }
-			    
-			} 
-	    	
-	    	return TaskTransformation.fromEntity(newList);
-		}
-	    
-	    
-	    public List<TaskDTO> getIncompletedTasksByUserId(String userId) {
-	    	
-	    	List<Task> list = repository.findAllByUserId(userId);
-             List<Task> newList = new ArrayList<Task>();
-	    	
-	    	for(int i=0;i<list.size();i++)
-			{
-			    Task task = list.get(i);
-			    
-			    if(!task.isComplete());
-			    {
-			    	newList.add(task);
+					if (complete && task.isComplete()) 
+						newList.add(task);
+					 else 
+						newList.add(task);		    
 			    }
 			    
 			}
-	    	
-	    	return TaskTransformation.fromEntity(newList);
-        }
+	       
+	    	 return TaskTransformation.fromEntity(newList);
+	    }
+	   
 
 	    public TaskDTO createTask(TaskDTO taskDTO) {
 
 	        Task task = new Task();
 	        User user = userRepository.getById(taskDTO.getUserId());
+	        
+	        List<String> tagIds = taskDTO.getTagIds();
+	        List<Tag> tags = new ArrayList<Tag>();
+	        
+	        for(int i=0; i<tags.size(); i++)
+			{
+			    Tag tag = tagRepository.getById(tagIds.get(i));
+			    	tags.add(tag);
+			} 
+	        
 	       
 	        Date date = new Date();
             task.setDateCreated(date);
 	        task.setTitle(taskDTO.getTitle());
 	        task.setDesc(taskDTO.getDesc());
 	        task.setUser(user);
+	        task.setTags(tags);
 	        
 	        repository.save(task);
 

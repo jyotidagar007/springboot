@@ -36,8 +36,8 @@ public class Task {
 		    @JoinColumn(nullable = false)
 		    private User user;
 		    
-		    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-		    List<Tag> tagList= new ArrayList<Tag>();
+		    @ManyToMany(mappedBy = "tasks", cascade = CascadeType.ALL)
+		    List<Tag> tags= new ArrayList<Tag>();
 		    
 
 			public Task() {
@@ -49,7 +49,7 @@ public class Task {
 				this.title = title;
 				this.desc = desc;
 				this.user = user;
-				this.tagList = tagList;
+				this.tags = tagList;
 			}
 
 			public boolean isFlag() {
@@ -120,13 +120,13 @@ public class Task {
 		                '}';
 		    }
 
-			public List<Tag> getTagList() {
-				return tagList;
+			public List<Tag> getTags() {
+				return tags;
 			}
 
 
-			public void setTagList(List<Tag> tagList) {
-				this.tagList = tagList;
+			public void setTags(List<Tag> tags) {
+				this.tags = tags;
 			}			
 
 }

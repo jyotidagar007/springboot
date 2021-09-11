@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.entity.Tag;
+import com.example.demo.entity.User;
 import com.example.demo.repository.TagRepository;
+import com.example.demo.repository.UserRepository;
 
 @Component
 @Transactional
@@ -14,17 +16,20 @@ public class TagService {
     
 	@Autowired
 	private TagRepository tagRepository;
+	private UserRepository userRepository;
 
 	public Tag getById(String id) {
 		Tag tag = tagRepository.getById(id);
 		return tag;
 	}
 
-	public String createTag(String title, String color) {
+	public String createTag(String title, String color, String userId) {
 		Tag tag = new Tag();
+		User user = userRepository.getById(userId);
 		
 		tag.setTitle(title);
 		tag.setColor(color);
+		tag.setUser(user);
 		
 		tagRepository.save(tag);
 		
@@ -34,6 +39,7 @@ public class TagService {
 	public String updateTag(String id, String title, String color) {
 	
 		Tag tag = tagRepository.getById(id);
+		
 		tag.setTitle(title);
 		tag.setColor(color);
 		
