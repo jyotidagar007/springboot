@@ -14,51 +14,10 @@ public class TaskDTO {
 		    
 		    private String desc;
 		    
-           private boolean isComplete;
-		    
-		    private boolean flag;
-		    
-		    private Date dateCreated;
-           
-			private Date lastUpdated;
-		    
 		    private String userId;
 		    
-		    List<String> tagIds= new ArrayList<>();
+		    List<String> tagIds= new ArrayList<String>();
 		    
-		    
-
-			public boolean isComplete() {
-				return isComplete;
-			}
-
-			public void setComplete(boolean isComplete) {
-				this.isComplete = isComplete;
-			}
-
-			public boolean isFlag() {
-				return flag;
-			}
-
-			public void setFlag(boolean flag) {
-				this.flag = flag;
-			}
-
-			public Date getDateCreated() {
-				return dateCreated;
-			}
-
-			public void setDateCreated(Date dateCreated) {
-				this.dateCreated = dateCreated;
-			}
-
-			public Date getLastUpdated() {
-				return lastUpdated;
-			}
-
-			public void setLastUpdated(Date lastUpdated) {
-				this.lastUpdated = lastUpdated;
-			}
 
 			public String getTitle() {
 		        return title;

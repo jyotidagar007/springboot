@@ -12,6 +12,6 @@ public interface TaskRepository extends JpaRepository<Task, String>{
 
 	Task findByTitle(String title);
 
-	List<Task> findAllByUserId(String userId);
+	List<Task> findAllByUserIdAndIsCompleteAndFlag(String userId, Boolean complete, Boolean flag);
 
 }

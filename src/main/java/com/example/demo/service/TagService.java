@@ -16,7 +16,9 @@ public class TagService {
     
 	@Autowired
 	private TagRepository tagRepository;
+	@Autowired
 	private UserRepository userRepository;
+	
 
 	public Tag getById(String id) {
 		Tag tag = tagRepository.getById(id);
@@ -30,6 +32,7 @@ public class TagService {
 		tag.setTitle(title);
 		tag.setColor(color);
 		tag.setUser(user);
+	//	tag.setTasks(null);
 		
 		tagRepository.save(tag);
 		

@@ -43,13 +43,13 @@ public class Task {
 			public Task() {
 			}
 
-			public Task(String id, String title, String desc, User user, List<Tag> tagList) {
+			public Task(String id, String title, String desc, User user, List<Tag> tags) {
 				super();
 				this.id = id;
 				this.title = title;
 				this.desc = desc;
 				this.user = user;
-				this.tags = tagList;
+				this.tags = tags;
 			}
 
 			public boolean isFlag() {

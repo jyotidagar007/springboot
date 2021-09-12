@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.example.demo.dto.TaskDTO;
 import com.example.demo.entity.Task;
+import com.example.demo.entity.User;
+import com.example.demo.entity.Tag;
 
 public class TaskTransformation {
 	 public static TaskDTO fromEntity(Task task) {
@@ -13,8 +15,20 @@ public class TaskTransformation {
 	    	
 	    	taskDTO.setTitle(task.getTitle());
 	    	taskDTO.setDesc(task.getDesc());
-	    	taskDTO.setDateCreated(task.getDateCreated());	
-	    	taskDTO.setComplete(task.isComplete());
+	    	
+	    	User user = task.getUser();
+	    	taskDTO.setUserId(user.getId());
+	    	
+	    	List<Tag> tags = task.getTags();
+	    	List<String> tagIds = new ArrayList<String>();
+	    	
+	    	for(int i=0; i<tags.size(); i++)
+			{	
+			    Tag tag = tags.get(i);  
+			    tagIds.add(tag.getId());	    
+			} 
+	    			
+	    	taskDTO.setTagIds(tagIds);
 	    	
 	    	return taskDTO;
 	    }

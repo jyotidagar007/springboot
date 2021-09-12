@@ -44,11 +44,22 @@ public class User {
 	}
 
 	public User(String firstName, String lastName, String username, String password) {
+	
 						this.firstName = firstName;
 						this.lastName = lastName;
 						this.username = username;
 						this.password = password;
 				}
+	
+	
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getFirstName() {
         return firstName;

@@ -21,7 +21,6 @@ import com.example.demo.repository.UserRepository;
 @Component
 @Transactional
 public class TaskService {
-	 private static final int Iterable = 0;
 	private @Autowired
 	    TaskRepository repository;
 	 private @Autowired
@@ -38,24 +37,9 @@ public class TaskService {
 
 	    public List<TaskDTO> getTasksByUserId(String userId, Boolean complete) {
 	  
-			List<Task> list = repository.findAllByUserId(userId);
-			List<Task> newList = new ArrayList<Task>();
-			
-			for(int i=0;i<list.size();i++)
-			{
-			    Task task = list.get(i);
-			    
-			    if(!task.isFlag())
-			    {
-					if (complete && task.isComplete()) 
-						newList.add(task);
-					 else 
-						newList.add(task);		    
-			    }
-			    
-			}
-	       
-	    	 return TaskTransformation.fromEntity(newList);
+			List<Task> list = repository.findAllByUserIdAndIsCompleteAndFlag(userId, complete, false);
+  
+	    	 return TaskTransformation.fromEntity(list);
 	    }
 	   
 
@@ -64,7 +48,8 @@ public class TaskService {
 	        Task task = new Task();
 	        User user = userRepository.getById(taskDTO.getUserId());
 	        
-	        List<String> tagIds = taskDTO.getTagIds();
+	        List<String> tagIds = new ArrayList<String>();
+	        tagIds = taskDTO.getTagIds();
 	        List<Tag> tags = new ArrayList<Tag>();
 	        
 	        for(int i=0; i<tags.size(); i++)
@@ -76,9 +61,11 @@ public class TaskService {
 	       
 	        Date date = new Date();
             task.setDateCreated(date);
+            
 	        task.setTitle(taskDTO.getTitle());
 	        task.setDesc(taskDTO.getDesc());
 	        task.setUser(user);
+	        
 	        task.setTags(tags);
 	        
 	        repository.save(task);
@@ -90,11 +77,21 @@ public class TaskService {
 	    	
 	    	 Task task = repository.findByTitle(taskDTO.getTitle());
 	    	 
+	    	  List<String> tagIds = taskDTO.getTagIds();
+		        List<Tag> tags = new ArrayList<Tag>();
+		        
+		        for(int i=0; i<tags.size(); i++)
+				{
+				    Tag tag = tagRepository.getById(tagIds.get(i));
+				    	tags.add(tag);
+				} 
+	    	 
 	             
 	             Date date = new Date();
 	             task.setLastUpdated(date);
 	             task.setTitle(taskDTO.getTitle());
 	             task.setDesc(taskDTO.getDesc());
+	             task.setTags(tags);
 	          
 	             repository.save(task);
 	             return taskDTO;

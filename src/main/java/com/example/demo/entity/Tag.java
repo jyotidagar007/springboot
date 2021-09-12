@@ -25,7 +25,7 @@ public class Tag {
     @GeneratedValue(generator = "system-uuid")
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
 	private String id;
-	
+
 	@Column(name = "title")
 	private String title;
 	
@@ -55,8 +55,14 @@ public class Tag {
 		this.color = color;
 		this.tasks = taskList;
 	}
+	
+	public String getId() {
+		return id;
+	}
 
-
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public List<Task> getTasks() {
 		return tasks;
