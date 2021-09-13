@@ -51,10 +51,18 @@ public class TaskService {
 	    public TaskDTO createTask(TaskDTO taskDTO) {
 	    	
 	    	Task task = new Task();
+	    	Date date = new Date();
 	    	
 	    	if(taskDTO.getId() != null)
 	    	{
 	    		task = repository.getById(taskDTO.getId());
+	    		task.setLastUpdated(date);
+	    		
+	    	}
+	    	else
+	    	{
+	    		task.setDateCreated(date);
+	    		task.setLastUpdated(date);
 	    	}
 
 	        User user = userRepository.getById(taskDTO.getUserId());
@@ -72,8 +80,7 @@ public class TaskService {
 	        
 	        System.out.println(tags);
 	        
-	        Date date = new Date();
-            task.setDateCreated(date);
+	    
             
 	        task.setTitle(taskDTO.getTitle());
 	        task.setDesc(taskDTO.getDesc());
@@ -82,9 +89,7 @@ public class TaskService {
 	        task.setTags(tags);
 	        
 	        repository.save(task);
-	        
-	        //return taskDTO;
-
+	  
 	        return TaskTransformation.fromEntity(task);
 	    }
 	    
