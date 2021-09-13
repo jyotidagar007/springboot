@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import com.example.demo.entity.Tag;
 
 public class TaskDTO {
+	
+	        private String id;
 		    
 		    private String title;
 		    
@@ -18,6 +20,13 @@ public class TaskDTO {
 		    
 		    List<String> tagIds= new ArrayList<String>();
 		    
+			public String getId() {
+				return id;
+			}
+
+			public void setId(String id) {
+				this.id = id;
+			}
 
 			public String getTitle() {
 		        return title;

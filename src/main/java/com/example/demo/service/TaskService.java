@@ -49,21 +49,29 @@ public class TaskService {
 	   
 
 	    public TaskDTO createTask(TaskDTO taskDTO) {
+	    	
+	    	Task task = new Task();
+	    	
+	    	if(taskDTO.getId() != null)
+	    	{
+	    		task = repository.getById(taskDTO.getId());
+	    	}
 
-	        Task task = new Task();
 	        User user = userRepository.getById(taskDTO.getUserId());
 	        
-	        List<String> tagIds = new ArrayList<String>();
-	        tagIds = taskDTO.getTagIds();
+	        List<String> tagIds = taskDTO.getTagIds();
+	        
 	        List<Tag> tags = new ArrayList<Tag>();
 	        
-	        for(int i=0; i<tags.size(); i++)
+	        for(int i=0; i<tagIds.size(); i++)
 			{
 			    Tag tag = tagRepository.getById(tagIds.get(i));
+			    
 			    	tags.add(tag);
 			} 
 	        
-	       
+	        System.out.println(tags);
+	        
 	        Date date = new Date();
             task.setDateCreated(date);
             
@@ -74,32 +82,15 @@ public class TaskService {
 	        task.setTags(tags);
 	        
 	        repository.save(task);
+	        
+	        //return taskDTO;
 
-	        return taskDTO;
+	        return TaskTransformation.fromEntity(task);
 	    }
 	    
 	    public TaskDTO updateTask(TaskDTO taskDTO) {
 	    	
-	    	 Task task = repository.findByTitle(taskDTO.getTitle());
-	    	 
-	    	  List<String> tagIds = taskDTO.getTagIds();
-		        List<Tag> tags = new ArrayList<Tag>();
-		        
-		        for(int i=0; i<tags.size(); i++)
-				{
-				    Tag tag = tagRepository.getById(tagIds.get(i));
-				    	tags.add(tag);
-				} 
-	    	 
-	             
-	             Date date = new Date();
-	             task.setLastUpdated(date);
-	             task.setTitle(taskDTO.getTitle());
-	             task.setDesc(taskDTO.getDesc());
-	             task.setTags(tags);
-	          
-	             repository.save(task);
-	             return taskDTO;
+	    	return createTask(taskDTO);
 	        
 	    }
 	    
