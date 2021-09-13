@@ -21,9 +21,10 @@ public class TaskController {
 	        return ResponseEntity.ok(taskService.getById(id));
 	    }
 		
-		@GetMapping(value = "/get/tasks")
-	    public ResponseEntity getTasksByUserId(String userId, Boolean complete) {
-	        return ResponseEntity.ok(taskService.getTasksByUserId(userId, complete));
+		@GetMapping(value = "/get/tasks/{page}")
+	    public ResponseEntity getTasksByUserId(String userId, Boolean complete, @PathVariable("page") Integer page) 
+		{
+	        return ResponseEntity.ok(taskService.getTasksByUserId(userId, complete, page));
 		}	
 		
 		

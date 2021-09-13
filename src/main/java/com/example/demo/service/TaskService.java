@@ -6,6 +6,9 @@ import javax.transaction.Transactional;
 import java.lang.Iterable;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.dto.TaskDTO;
@@ -35,11 +38,13 @@ public class TaskService {
 	    }
 	    
 
-	    public List<TaskDTO> getTasksByUserId(String userId, Boolean complete) {
+	    public List<TaskDTO> getTasksByUserId(String userId, Boolean complete, int page) {
+	    	
+	    	Pageable pageable = PageRequest.of(page, 5);
 	  
-			List<Task> list = repository.findAllByUserIdAndIsCompleteAndFlag(userId, complete, false);
+		    Page<Task> tasks = repository.findAllByUserIdAndIsCompleteAndFlag(userId, complete, false, pageable);
   
-	    	 return TaskTransformation.fromEntity(list);
+	    	 return TaskTransformation.fromEntity(tasks);
 	    }
 	   
 
