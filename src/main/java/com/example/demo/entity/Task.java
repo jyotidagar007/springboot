@@ -110,6 +110,15 @@ public class Task {
 					this.lastUpdated = lastUpdated;
 				}
 		    
+				public List<Tag> getTags() {
+					return tags;
+				}
+
+
+				public void setTags(List<Tag> tags) {
+					this.tags = tags;
+				}	
+				
 		    @java.lang.Override
 		    public java.lang.String toString() {
 		        return "Task{" +
@@ -120,13 +129,5 @@ public class Task {
 		                '}';
 		    }
 
-			public List<Tag> getTags() {
-				return tags;
-			}
-
-
-			public void setTags(List<Tag> tags) {
-				this.tags = tags;
-			}			
-
+		
 }

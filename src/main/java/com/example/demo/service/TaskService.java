@@ -77,11 +77,7 @@ public class TaskService {
 			    
 			    	tags.add(tag);
 			} 
-	        
-	        System.out.println(tags);
-	        
-	    
-            
+	               
 	        task.setTitle(taskDTO.getTitle());
 	        task.setDesc(taskDTO.getDesc());
 	        task.setUser(user);
